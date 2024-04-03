@@ -28,12 +28,7 @@ class SendAiQuote extends Command
      */
     public function handle(AiQuote $AiQuote, TwilioSms $twilioSms)
     {
-        // make api call chat GPT to generate quote
-
-        $generatedQuote = $AiQuote->generateQuote();
-        $sendQuoteSms = $twilioSms->sendSms($generatedQuote);
-        dump($sendQuoteSms);
-
-        //send quotes to phone numbers using Twilio
+        $generatedMotivationalQuote = $AiQuote->generateMotivationalQuote();
+        $sendQuoteSms = $twilioSms->sendSms($generatedMotivationalQuote);
     }
 }

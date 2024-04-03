@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\Subscribe;
 use Twilio\Rest\Client;
-use App\Models\User;
 use Illuminate\Support\Facades\Log;
 
 class TwilioSms
@@ -24,11 +24,11 @@ class TwilioSms
     public function sendSms($aiGeneratedQuote)
     {
         try {
-            $users = User::all();
+            $users = Subscribe::all();
             foreach ($users as $user) {
                 $message = $this->twilio->messages
                     ->create(
-                        $user->phone, // to
+                        '+' . $user->phone, // to
                         [
                             "body" => $aiGeneratedQuote,
                             "from" => $this->twilioPhoneNumber //twilio num
@@ -36,7 +36,8 @@ class TwilioSms
                     );
             }
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
+            // Log::error($e->getMessage());
+            return $e->getMessage();
         }
     }
 }

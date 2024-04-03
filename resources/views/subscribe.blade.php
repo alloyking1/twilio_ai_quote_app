@@ -1,5 +1,10 @@
 <x-layout>
     <div class="rounded shadow-xl p-6 bg-white text-grey-50">
+        @if(session('success'))
+            <div class="bg-green-500 text-white p-4 mb-2">
+                {{ session('success') }}
+            </div>
+        @endif
         @if ($errors->any())
             <div class="bg-red-500 text-white p-4 mb-2">
                 <ul>
@@ -25,7 +30,7 @@
                   Phone Number
                 </label>
                 <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                 name="phone_number" 
+                 name="phone" 
                  type="number" 
                  placeholder="Phone number">
               </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Subscribe;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -16,12 +17,14 @@ class SubscribeController extends Controller
     {
         $validate = $request->validate([
             'name' => 'required | string | max:255',
-            'phone_number' => 'required | string | max:255',
+            'phone' => ['required', 'string', 'max:255', 'unique:' . Subscribe::class],
         ]);
 
-        User::create([
+        Subscribe::create([
             'name' => $request->name,
             'phone' => $request->phone_number,
         ]);
+
+        return redirect()->route('list')->with('success', 'Phone number added to list!');
     }
 }

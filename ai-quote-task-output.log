@@ -1,0 +1,21 @@
+
+   ErrorException 
+
+  Object of class Illuminate\Http\JsonResponse could not be converted to int
+
+  at vendor/laravel/framework/src/Illuminate/Console/Command.php:211
+    207▕ 
+    208▕         $method = method_exists($this, 'handle') ? 'handle' : '__invoke';
+    209▕ 
+    210▕         try {
+  ➜ 211▕             return (int) $this->laravel->call([$this, $method]);
+    212▕         } finally {
+    213▕             if ($this instanceof Isolatable && $this->option('isolated') !== false) {
+    214▕                 $this->commandIsolationMutex()->forget($this);
+    215▕             }
+
+      [2m+7 vendor frames [22m
+
+  8   artisan:37
+      Illuminate\Foundation\Console\Kernel::handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+

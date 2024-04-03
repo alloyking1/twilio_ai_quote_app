@@ -3,40 +3,40 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
+use GuzzleHttp\Client;
 
 class AiQuote
 {
-
-    protected $aiApiUrl;
-    protected $aiApiKey;
+    protected $client;
+    protected $apiKey;
 
     public function __construct()
     {
-        $this->aiApiUrl = getenv("OPEN_AI_API_URL");
-        $this->aiApiKey = getenv("OPEN_AI_API_KEY");
+        $this->apiKey = env('OPEN_AI_API_KEY');
+        $this->client = new Client([
+            'base_uri' => env('OPEN_AI_API_URL'),
+        ]);
     }
 
-    public function generateQuote()
+    public function generateMotivationalQuote()
     {
-        // try{
+        // $response = $this->client->request('POST', '/v1/engines/text-davinci-003/completions', [
+        //     'headers' => [
+        //         'Authorization' => 'Bearer ' . $this->apiKey,
+        //         'Content-Type' => 'application/json',
+        //     ],
+        //     'json' => [
+        //         'prompt' => 'Provide a motivational quote.',
+        //         'temperature' => 0.7,
+        //         'max_tokens' => 64,
+        //     ],
+        // ]);
 
-        // curl https://api.openai.com/v1/chat/completions \
-        // -H "Content-Type: application/json" \
-        // -H "Authorization: Bearer $this->AI_Api_Key" \
-        // -d '{
-        //     "model": "gpt-3.5-turbo",
-        //     "messages": [{"role": "user", "content": "Say this is a test!"}],
-        //     "temperature": 0.7
-        // }'
+        // $body = $response->getBody();
+        // $data = json_decode($body);
 
-        $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . $this->aiApiKey,
-            'Content-Type' => 'application/json',
-            'model' => 'gpt-3.5-turbo',
-        ])->post($this->aiApiUrl . '/completions', [
-            'message' => json_encode(["role" => "user", "content" => "Say this is a test!"]),
-        ]);
+        // return $data->choices[0]->text ?? 'No quote generated.';
 
-        return response()->json($response->body());
+        return "this is the motivational text sample";
     }
 }
