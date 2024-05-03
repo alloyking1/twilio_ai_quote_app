@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Models\Subscribe;
 use Twilio\Rest\Client;
-use Illuminate\Support\Facades\Log;
 
 class TwilioSms
 {
@@ -35,8 +34,9 @@ class TwilioSms
                         ]
                     );
             }
+
+            print($validation_request->friendlyName);
         } catch (\Exception $e) {
-            // Log::error($e->getMessage());
             return $e->getMessage();
         }
     }

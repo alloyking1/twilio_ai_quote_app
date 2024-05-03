@@ -12,9 +12,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
-        //to send output to a log file after running command
         $schedule->command('app:send-ai-quote')->everyMinute()->sendOutputTo('task-output.log');
+        // $schedule->command('app:send-ai-quote')->daily()->sendOutputTo('task-output.log');
     }
 
     /**

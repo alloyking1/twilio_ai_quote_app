@@ -1,5 +1,8 @@
 <x-layout>
-    <div class="rounded shadow-xl p-6 bg-white text-grey-50">
+    <div class="rounded shadow-xl p-6 bg-white text-grey-50 mt-[20%]">
+        <div class="my-2">
+            <h2 class="text-3xl font-bold text-gray-500">Add a phone number to list</h2>
+        </div>
         @if(session('success'))
             <div class="bg-green-500 text-white p-4 mb-2">
                 {{ session('success') }}
@@ -28,6 +31,8 @@
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="phone_number">
                   Phone Number
+                  <div class="font-thin">Enter phone number with country code without the (+) sight</div>
+                  <div class="font-thin">Eg: 123XXXXXXX not +123XXXXXXX</div>
                 </label>
                 <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                  name="phone" 

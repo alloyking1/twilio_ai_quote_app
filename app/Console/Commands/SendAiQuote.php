@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Models\User;
 use Illuminate\Console\Command;
 use App\Services\AiQuote;
 use App\Services\TwilioSms;
@@ -29,6 +28,7 @@ class SendAiQuote extends Command
     public function handle(AiQuote $AiQuote, TwilioSms $twilioSms)
     {
         $generatedMotivationalQuote = $AiQuote->generateMotivationalQuote();
-        $sendQuoteSms = $twilioSms->sendSms($generatedMotivationalQuote);
+        // $sendQuoteSms = $twilioSms->sendSms($generatedMotivationalQuote);
+        dump($generatedMotivationalQuote);
     }
 }

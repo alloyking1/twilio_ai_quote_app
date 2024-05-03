@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 
 class AiQuote
 {
@@ -13,30 +14,31 @@ class AiQuote
     public function __construct()
     {
         $this->apiKey = env('OPEN_AI_API_KEY');
-        $this->client = new Client([
-            'base_uri' => env('OPEN_AI_API_URL'),
-        ]);
+        $this->client = new Client();
     }
 
     public function generateMotivationalQuote()
     {
-        // $response = $this->client->request('POST', '/v1/engines/text-davinci-003/completions', [
-        //     'headers' => [
-        //         'Authorization' => 'Bearer ' . $this->apiKey,
-        //         'Content-Type' => 'application/json',
-        //     ],
-        //     'json' => [
-        //         'prompt' => 'Provide a motivational quote.',
-        //         'temperature' => 0.7,
-        //         'max_tokens' => 64,
-        //     ],
-        // ]);
+        $payload = [
+            'model' => 'gpt-3.5-turbo', // Adjust model as necessary.
+            'prompt' => 'Generate an inspirational quote.', // Define your prompt
+            'temperature' => 0.7,
+            'max_tokens' => 64,
+        ];
 
-        // $body = $response->getBody();
-        // $data = json_decode($body);
+        try {
+            $response = $this->client->post('https://api.openai.com/v1/chat/completions', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $this->apiKey,
+                    'Content-Type' => 'application/json',
+                ],
+                'json' => $payload,
+            ]);
 
-        // return $data->choices[0]->text ?? 'No quote generated.';
-
-        return "this is the motivational text sample";
+            $body = json_decode($response->getBody(), true);
+            return $body['choices'][0]['message']['content'] ?? 'No quote could be generated.';
+        } catch (GuzzleException $e) {
+            return 'Failed to generate quote: ' . $e->getMessage();
+        }
     }
 }
