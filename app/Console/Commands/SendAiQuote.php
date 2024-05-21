@@ -28,7 +28,6 @@ class SendAiQuote extends Command
     public function handle(AiQuote $AiQuote, TwilioSms $twilioSms)
     {
         $generatedMotivationalQuote = $AiQuote->generateMotivationalQuote();
-        // $sendQuoteSms = $twilioSms->sendSms($generatedMotivationalQuote);
-        dump($generatedMotivationalQuote);
+        $sendQuoteSms = $twilioSms->sendSms($generatedMotivationalQuote);
     }
 }

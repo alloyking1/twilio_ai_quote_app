@@ -12,7 +12,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command('app:send-ai-quote')->everyMinute()->sendOutputTo('task-output.log');
+        $schedule->command('app:send-ai-quote')->everyTenSeconds()->sendOutputTo('task-output.log');
         // $schedule->command('app:send-ai-quote')->daily()->sendOutputTo('task-output.log');
     }
 

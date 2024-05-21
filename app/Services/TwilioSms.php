@@ -34,8 +34,7 @@ class TwilioSms
                         ]
                     );
             }
-
-            print($validation_request->friendlyName);
+            echo $aiGeneratedQuote." Quotes sent successfully";
         } catch (\Exception $e) {
             return $e->getMessage();
         }

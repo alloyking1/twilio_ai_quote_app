@@ -1,1 +1,0 @@
-"[HTTP 400] Unable to create record: Sorry! Placing verification calls is not supported on trial accounts. Please upgrade to a full account first " // app/Console/Commands/SendAiQuote.php:33

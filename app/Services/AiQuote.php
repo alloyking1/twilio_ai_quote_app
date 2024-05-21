@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\Http;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
@@ -14,6 +13,7 @@ class AiQuote
     public function __construct()
     {
         $this->apiKey = env('OPEN_AI_API_KEY');
+        $this->url = env('OPEN_AI_API_URL');
         $this->client = new Client();
     }
 
@@ -21,13 +21,20 @@ class AiQuote
     {
         $payload = [
             'model' => 'gpt-3.5-turbo', // Adjust model as necessary.
-            'prompt' => 'Generate an inspirational quote.', // Define your prompt
-            'temperature' => 0.7,
-            'max_tokens' => 64,
+            'messages' => [
+                [
+                  "role" => "system",
+                  "content" => "You are a motivational quote assistant, skilled in generating motivational quotes to bright up peoples day" //replace with your prompt
+                ],
+                [
+                  "role" => "user",
+                  "content" => "Generate a motivational quote to brighten peoples day" //replace with your prompt
+                  ]
+              ]
         ];
 
         try {
-            $response = $this->client->post('https://api.openai.com/v1/chat/completions', [
+            $response = $this->client->post($this->url.'completions', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . $this->apiKey,
                     'Content-Type' => 'application/json',
